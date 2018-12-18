@@ -23,22 +23,53 @@ const topLevelIcons: [string, string][] = [
     ["variables", "variables.svg"],
     ["resources", "resources.svg"],
     ["outputs", "outputs.svg"],
+    ["tags", "tags.svg"],
 ];
 
 const topLevelChildIconsByRootNode: [string, string][] = [
     ["parameters", "parameters.svg"],
     ["variables", "variables.svg"],
     ["outputs", "outputs.svg"],
+    ["tags", "tags.svg"],
 ];
 
 const resourceIcons: [string, string][] = [
-    ["Microsoft.Compute/virtualMachines", "virtualmachines.svg"],
-    ["Microsoft.Storage/storageAccounts", "storageaccounts.svg"],
-    ["Microsoft.Network/virtualNetworks", "virtualnetworks.svg"],
-    ["Microsoft.Compute/virtualMachines/extensions", "extensions.svg"],
-    ["Microsoft.Network/networkSecurityGroups", "nsg.svg"],
-    ["Microsoft.Network/networkInterfaces", "nic.svg"],
-    ["Microsoft.Network/publicIPAddresses", "publicip.svg"]
+    ["Microsoft.ApiManagement/service", "Microsoft.ApiManagement.service.svg"],
+    ["Microsoft.Automation/AutomationAccounts", "Microsoft.Automation.AutomationAccounts.svg"],
+    ["Microsoft.Batch/batchAccounts", "Microsoft.Batch.batchAccounts.svg"],
+    ["microsoft.cdn/profiles", "microsoft.cdn.profiles.svg"],
+    ["Microsoft.Compute/availabilitySets", "Microsoft.Compute.availabilitySets.svg"],
+    ["Microsoft.Compute/disks", "Microsoft.Compute.disks.svg"],
+    ["Microsoft.Compute/images", "Microsoft.Compute.images.svg"],
+    ["Microsoft.Compute/virtualMachines/extensions", "Microsoft.Compute.virtualMachines.extensions.svg"],
+    ["Microsoft.Compute/virtualMachines", "Microsoft.Compute.virtualMachines.svg"],
+    ["Microsoft.Compute/virtualMachineScaleSets", "Microsoft.Compute.virtualMachineScaleSets.svg"],
+    ["Microsoft.ContainerRegistry/registries", "Microsoft.ContainerRegistry.registries.svg"],
+    ["Microsoft.ContainerService/containerServices", "Microsoft.ContainerService.containerServices.svg"],
+    ["Microsoft.DevTestLab/labs", "Microsoft.DevTestLab.labs.svg"],
+    ["Microsoft.DocumentDb/databaseAccounts", "Microsoft.DocumentDb.databaseAccounts.svg"],
+    ["Microsoft.EventHub/namespaces", "Microsoft.EventHub.namespaces.svg"],
+    ["Microsoft.insights/components", "microsoft.insights.components.svg"],
+    ["Microsoft.KeyVault/vaults", "Microsoft.KeyVault.vaults.svg"],
+    ["Microsoft.Logic/workflows", "Microsoft.Logic.workflows.svg"],
+    ["Microsoft.Network/applicationGateways", "Microsoft.Network.applicationGateways.svg"],
+    ["Microsoft.Network/dnsZones", "Microsoft.Network.dnsZones.svg"],
+    ["Microsoft.Network/expressRouteCircuits", "Microsoft.Network.expressRouteCircuits.svg"],
+    ["Microsoft.Network/LoadBalancers", "Microsoft.Network.LoadBalancers.svg"],
+    ["Microsoft.Network/networkInterfaces", "Microsoft.Network.networkInterfaces.svg"],
+    ["Microsoft.Network/networkSecurityGroups", "Microsoft.Network.networkSecurityGroups.svg"],
+    ["Microsoft.Network/publicIPAddresses", "Microsoft.Network.publicIPAddresses.svg"],
+    ["Microsoft.Network/routeFilters", "Microsoft.Network.routeFilters.svg"],
+    ["Microsoft.Network/trafficmanagerprofiles", "Microsoft.Network.trafficmanagerprofiles.svg"],
+    ["Microsoft.Network/virtualNetworkGateways", "Microsoft.Network.virtualNetworkGateways.svg"],
+    ["Microsoft.Network/virtualNetworks", "Microsoft.Network.virtualNetworks.svg"],
+    ["Microsoft.RecoveryServices/vaults", "Microsoft.RecoveryServices.vaults.svg"],
+    ["Microsoft.Resources/subscriptions/resourceGroups", "Microsoft.Resources.subscriptions.resourceGroups.svg"],
+    ["Microsoft.ServiceBus/namespaces", "Microsoft.ServiceBus.namespaces.svg"],
+    ["Microsoft.ServiceFabric/clusters", "Microsoft.ServiceFabric.clusters.svg"],
+    ["Microsoft.Sql.servers/databases", "Microsoft.Sql.servers databases.svg"],
+    ["Microsoft.Storage/storageAccounts", "Microsoft.Storage.storageAccounts.svg"],
+    ["Microsoft.Web/HostingEnvironments", "Microsoft.Web.HostingEnvironments.svg"]
 ];
 
 export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {
@@ -60,6 +91,42 @@ export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {
                 this.updateTreeState();
             },
             500);
+    }
+
+    // tslint:disable-next-line:no-any
+    public static addItemCommand(item: vscode.TreeItem, commandName: string, args?: any[]): vscode.TreeItem {
+        item.command = {
+            arguments: args,
+            command: commandName,
+            title: "",
+        };
+
+        return item;
+    }
+
+    public static addItemIcon(node: vscode.TreeItem, key: string, visibility: string = "public") {
+        const aliases = {
+            function: "method",
+            variable: "property",
+        };
+
+        if (aliases[key] !== undefined) {
+            key = aliases[key];
+        }
+
+        // const icons = {
+        //     class: {
+        //         private: vscode.Uri.file(__dirname + "/../assets/ic_class_private_24px.svg"),
+        //         protected: vscode.Uri.file(__dirname + "/../assets/ic_class_private_24px.svg"),
+        //         public: vscode.Uri.file(__dirname + "/../assets/ic_class_public_24px.svg"),
+        //     },
+        // };
+
+        // if (icons[key] !== undefined) {
+        //     node.iconPath = icons[key][visibility];
+        // }
+
+        return node;
     }
 
     public refresh() {

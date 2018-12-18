@@ -51,13 +51,11 @@
       }
     },
     "views": {
-      "explorer": [
-        {
-          "id": "json-outline",
-          "name": "JSON Outline",
-          "when": "showArmJsonView"
-        }
-      ]
+      "explorer": [{
+        "id": "json-outline",
+        "name": "ARM Template Outline",
+        "when": "showArmJsonView"
+      }]
     }
   },
   "main": "./out/src/AzureRMTools",
