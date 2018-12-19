@@ -90,11 +90,10 @@ export class AzureRMTools {
 
         const jsonOutline: JsonOutlineProvider = new JsonOutlineProvider(context);
         ext.jsonOutlineProvider = jsonOutline;
-        context.subscriptions.push(vscode.window.registerTreeDataProvider("json-outline", jsonOutline));
+        context.subscriptions.push(vscode.window.registerTreeDataProvider("arm-template", jsonOutline));
         context.subscriptions.push(vscode.commands.registerCommand("extension.treeview.goto", (range: vscode.Range) => jsonOutline.goToDefinition(range)));
-
-        // context.subscriptions.push(vscode.commands.registerCommand('myextension.mycommand', (uri: vscode.Uri) => {
-        // }));
+        //context.subscriptions.push(vscode.commands.registerCommand('extension.treeview.renameNode', offset => jsonOutline.rename(offset)));
+        context.subscriptions.push(vscode.commands.registerCommand('arm-template.renameNode', offset => jsonOutline.rename(offset)));
 
         this.log({
             eventName: "Extension Activated"

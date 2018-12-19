@@ -47,14 +47,28 @@
           "type": "boolean",
           "default": true,
           "description": "Allow anonymous telemetry for the Azure Resource Manager Tools extension."
+        },
+        "jsonOutline.autorefresh": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
     "views": {
       "explorer": [{
-        "id": "json-outline",
+        "id": "arm-template",
         "name": "ARM Template",
         "when": "showArmJsonView"
+      }]
+    },
+    "commands": [{
+      "command": "arm-template.renameNode",
+      "title": "Rename"
+    }],
+    "menus": {
+      "view/item/context": [{
+        "command": "arm-template.renameNode",
+        "when": "view == arm-template"
       }]
     }
   },
