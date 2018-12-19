@@ -93,6 +93,9 @@ export class AzureRMTools {
         context.subscriptions.push(vscode.window.registerTreeDataProvider("json-outline", jsonOutline));
         context.subscriptions.push(vscode.commands.registerCommand("extension.treeview.goto", (range: vscode.Range) => jsonOutline.goToDefinition(range)));
 
+        // context.subscriptions.push(vscode.commands.registerCommand('myextension.mycommand', (uri: vscode.Uri) => {
+        // }));
+
         this.log({
             eventName: "Extension Activated"
         });

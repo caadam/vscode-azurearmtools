@@ -21,7 +21,7 @@ const topLevelIcons: [string, string][] = [
     ["handler", "label.svg"],
     ["parameters", "parameters.svg"],
     ["variables", "variables.svg"],
-    ["resources", "resources.svg"],
+    ["resources", "Microsoft.Resources.subscriptions.resourceGroups.svg"],
     ["outputs", "outputs.svg"],
     ["tags", "tags.svg"],
 ];
@@ -45,7 +45,9 @@ const resourceIcons: [string, string][] = [
     ["Microsoft.Compute/virtualMachines", "Microsoft.Compute.virtualMachines.svg"],
     ["Microsoft.Compute/virtualMachineScaleSets", "Microsoft.Compute.virtualMachineScaleSets.svg"],
     ["Microsoft.ContainerRegistry/registries", "Microsoft.ContainerRegistry.registries.svg"],
+    ["Microsoft.ContainerService/containerGroups", "Microsoft.ContainerService.containerGroups.svg"],
     ["Microsoft.ContainerService/containerServices", "Microsoft.ContainerService.containerServices.svg"],
+    ["Microsoft.ContainerService/managedClusters", "Microsoft.ContainerService.managedClusters.svg"],
     ["Microsoft.DevTestLab/labs", "Microsoft.DevTestLab.labs.svg"],
     ["Microsoft.DocumentDb/databaseAccounts", "Microsoft.DocumentDb.databaseAccounts.svg"],
     ["Microsoft.EventHub/namespaces", "Microsoft.EventHub.namespaces.svg"],
@@ -53,21 +55,31 @@ const resourceIcons: [string, string][] = [
     ["Microsoft.KeyVault/vaults", "Microsoft.KeyVault.vaults.svg"],
     ["Microsoft.Logic/workflows", "Microsoft.Logic.workflows.svg"],
     ["Microsoft.Network/applicationGateways", "Microsoft.Network.applicationGateways.svg"],
+    ["Microsoft.Network/connections", "Microsoft.Network.connections.svg"],
     ["Microsoft.Network/dnsZones", "Microsoft.Network.dnsZones.svg"],
     ["Microsoft.Network/expressRouteCircuits", "Microsoft.Network.expressRouteCircuits.svg"],
     ["Microsoft.Network/LoadBalancers", "Microsoft.Network.LoadBalancers.svg"],
+    ["Microsoft.Network/localnetworkgateways", "Microsoft.Network.localnetworkgateways.svg"],
     ["Microsoft.Network/networkInterfaces", "Microsoft.Network.networkInterfaces.svg"],
     ["Microsoft.Network/networkSecurityGroups", "Microsoft.Network.networkSecurityGroups.svg"],
     ["Microsoft.Network/publicIPAddresses", "Microsoft.Network.publicIPAddresses.svg"],
     ["Microsoft.Network/routeFilters", "Microsoft.Network.routeFilters.svg"],
+    ["Microsoft.Network/routeTables", "Microsoft.Network.routeTables.svg"],
     ["Microsoft.Network/trafficmanagerprofiles", "Microsoft.Network.trafficmanagerprofiles.svg"],
     ["Microsoft.Network/virtualNetworkGateways", "Microsoft.Network.virtualNetworkGateways.svg"],
     ["Microsoft.Network/virtualNetworks", "Microsoft.Network.virtualNetworks.svg"],
+    ["Microsoft.NotificationHubs/namespaces", "Microsoft.NotificationHubs.namespaces.svg"],
     ["Microsoft.RecoveryServices/vaults", "Microsoft.RecoveryServices.vaults.svg"],
     ["Microsoft.Resources/subscriptions/resourceGroups", "Microsoft.Resources.subscriptions.resourceGroups.svg"],
+    ["Microsoft.Search/searchServices", "Microsoft.Search.searchServices.svg"],
     ["Microsoft.ServiceBus/namespaces", "Microsoft.ServiceBus.namespaces.svg"],
     ["Microsoft.ServiceFabric/clusters", "Microsoft.ServiceFabric.clusters.svg"],
-    ["Microsoft.Sql.servers/databases", "Microsoft.Sql.servers databases.svg"],
+    ["Microsoft.ServiceFabricMesh/applications", "Microsoft.ServiceFabricMesh.applications.svg"],
+    ["Microsoft.Sql/managedInstances/databases", "Microsoft.Sql.managedInstances.databases.svg"],
+    ["Microsoft.Sql/managedInstances", "Microsoft.Sql.managedInstances.svg"],
+    ["Microsoft.Sql.servers/elasticpools", "Microsoft.Sql.elasticpools.svg"],
+    ["Microsoft.Sql.servers/servers", "Microsoft.Sql.servers.svg"],
+    ["Microsoft.Sql.servers/databases/servers", "Microsoft.Sql.servers.databases.svg"],
     ["Microsoft.Storage/storageAccounts", "Microsoft.Storage.storageAccounts.svg"],
     ["Microsoft.Web/HostingEnvironments", "Microsoft.Web.HostingEnvironments.svg"]
 ];
@@ -202,6 +214,8 @@ export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {
     public goToDefinition(range: vscode.Range) {
         const editor: vscode.TextEditor = vscode.window.activeTextEditor;
 
+        // tslint:disable-next-line:no-console
+        console.log("hello");
         // Center the method in the document
         editor.revealRange(range, vscode.TextEditorRevealType.Default);
         // Select the method name
