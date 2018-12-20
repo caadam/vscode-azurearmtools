@@ -19,7 +19,8 @@ const topLevelIcons: [string, string][] = [
     ["version", "label.svg"],
     ["contentVersion", "label.svg"],
     ["handler", "label.svg"],
-    ["parameters", "parameters.svg"],
+    //["parameters", "parameters.svg"],
+    ["parameters", "parameters.png"],
     ["variables", "variables.svg"],
     ["resources", "Microsoft.Resources.subscriptions.resourceGroups.svg"],
     ["outputs", "outputs.svg"],
@@ -27,7 +28,8 @@ const topLevelIcons: [string, string][] = [
 ];
 
 const topLevelChildIconsByRootNode: [string, string][] = [
-    ["parameters", "parameters.svg"],
+    //["parameters", "parameters.svg"],
+    ["parameters", "parameters.png"],
     ["variables", "variables.svg"],
     ["outputs", "outputs.svg"],
     ["tags", "tags.svg"],
@@ -94,7 +96,8 @@ const resourceTypeIcons: [string, string][] = [
 ];
 
 const resourceChildIcons: [string, string][] = [
-    ["parameters", "parameters.svg"],
+    //["parameters", "parameters.svg"],
+    ["parameters", "parameters.png"],
     ["variables", "variables.svg"],
     ["outputs", "outputs.svg"],
     ["tags", "tags.svg"],
@@ -293,8 +296,6 @@ export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {
     public goToDefinition(range: vscode.Range) {
         const editor: vscode.TextEditor = vscode.window.activeTextEditor;
 
-        // tslint:disable-next-line:no-console
-        console.log("hello");
         // Center the method in the document
         editor.revealRange(range, vscode.TextEditorRevealType.Default);
         // Select the method name
@@ -531,6 +532,10 @@ export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {
                     }
                     case "tags".toUpperCase(): {
                         icon = this.getIcon(resourceChildIcons, "tags", "tags.svg");
+                        break;
+                    }
+                    case "templateLink".toUpperCase(): {
+                        icon = this.getIcon(resourceChildIcons, "templateLink", "template.png");
                         break;
                     }
                     default: {

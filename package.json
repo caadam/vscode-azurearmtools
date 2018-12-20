@@ -57,7 +57,7 @@
     "views": {
       "explorer": [{
         "id": "arm-template",
-        "name": "ARM Template",
+        "name": "ARM Template Editor",
         "when": "showArmJsonView"
       }]
     },
