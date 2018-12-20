@@ -37,8 +37,10 @@ const topLevelChildIconsByRootNode: [string, string][] = [
 const resourceIcons: [string, string][] = [
     ["Microsoft.ApiManagement/service", "Microsoft.ApiManagement.service.svg"],
     ["Microsoft.Automation/AutomationAccounts", "Microsoft.Automation.AutomationAccounts.svg"],
+    ["Microsoft.Cache/Redis", "Microsoft.Cache.Redis.svg"],
     ["Microsoft.Batch/batchAccounts", "Microsoft.Batch.batchAccounts.svg"],
     ["microsoft.cdn/profiles", "microsoft.cdn.profiles.svg"],
+    ["microsoft.cdn/profiles/endpoints", "microsoft.cdn.profiles.svg"],
     ["Microsoft.Compute/availabilitySets", "Microsoft.Compute.availabilitySets.svg"],
     ["Microsoft.Compute/disks", "Microsoft.Compute.disks.svg"],
     ["Microsoft.Compute/images", "Microsoft.Compute.images.svg"],
@@ -49,6 +51,8 @@ const resourceIcons: [string, string][] = [
     ["Microsoft.ContainerService/containerGroups", "Microsoft.ContainerService.containerGroups.svg"],
     ["Microsoft.ContainerService/containerServices", "Microsoft.ContainerService.containerServices.svg"],
     ["Microsoft.ContainerService/managedClusters", "Microsoft.ContainerService.managedClusters.svg"],
+    ["Microsoft.DataCatalog", "Microsoft.DataCatalog.svg"],
+    ["Microsoft.DataFactory", "Microsoft.DataFactory.svg"],
     ["Microsoft.DevTestLab/labs", "Microsoft.DevTestLab.labs.svg"],
     ["Microsoft.DocumentDb/databaseAccounts", "Microsoft.DocumentDb.databaseAccounts.svg"],
     ["Microsoft.EventHub/namespaces", "Microsoft.EventHub.namespaces.svg"],
@@ -66,6 +70,7 @@ const resourceIcons: [string, string][] = [
     ["Microsoft.Network/publicIPAddresses", "Microsoft.Network.publicIPAddresses.svg"],
     ["Microsoft.Network/routeFilters", "Microsoft.Network.routeFilters.svg"],
     ["Microsoft.Network/routeTables", "Microsoft.Network.routeTables.svg"],
+    ["Microsoft.Network/trafficManagerProfiles/azureEndpoints", "Microsoft.Network.trafficmanagerprofiles.svg"],
     ["Microsoft.Network/trafficmanagerprofiles", "Microsoft.Network.trafficmanagerprofiles.svg"],
     ["Microsoft.Network/virtualNetworkGateways", "Microsoft.Network.virtualNetworkGateways.svg"],
     ["Microsoft.Network/virtualNetworks", "Microsoft.Network.virtualNetworks.svg"],
@@ -82,7 +87,10 @@ const resourceIcons: [string, string][] = [
     ["Microsoft.Sql.servers/servers", "Microsoft.Sql.servers.svg"],
     ["Microsoft.Sql.servers/databases/servers", "Microsoft.Sql.servers.databases.svg"],
     ["Microsoft.Storage/storageAccounts", "Microsoft.Storage.storageAccounts.svg"],
-    ["Microsoft.Web/HostingEnvironments", "Microsoft.Web.HostingEnvironments.svg"]
+    ["Microsoft.Web/HostingEnvironments/workerPools", "Microsoft.Web.HostingEnvironments.workerPools.svg"],
+    ["Microsoft.Web/HostingEnvironments", "Microsoft.Web.HostingEnvironments.svg"],
+    ["Microsoft.Web/sites", "Microsoft.Web.Sites.svg"],
+    ["Microsoft.Web/serverfarms", "Microsoft.Web.serverfarms.svg"]
 ];
 
 export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {

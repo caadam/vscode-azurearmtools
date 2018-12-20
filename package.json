@@ -62,14 +62,62 @@
       }]
     },
     "commands": [{
-      "command": "arm-template.renameNode",
-      "title": "Rename"
-    }],
+        "command": "arm-template.findParameterUsage",
+        "title": "Find All References (Disabled)"
+      },
+      {
+        "command": "arm-template.addNode",
+        "title": "Add (Disabled)"
+      },
+      {
+        "command": "arm-template.renameNode",
+        "title": "Rename"
+      },
+      {
+        "command": "arm-template.cutNode",
+        "title": "Cut"
+      },
+      {
+        "command": "arm-template.copyNode",
+        "title": "Copy"
+      },
+      {
+        "command": "arm-template.pasteNode",
+        "title": "Paste"
+      }
+    ],
     "menus": {
       "view/item/context": [{
-        "command": "arm-template.renameNode",
-        "when": "view == arm-template"
-      }]
+          "command": "arm-template.findParameterUsage",
+          "when": "view == arm-template && viewItem == parameters",
+          "group": "navigation"
+        },
+        {
+          "command": "arm-template.addNode",
+          "when": "view == arm-template",
+          "group": "7_modification"
+        },
+        {
+          "command": "arm-template.renameNode",
+          "when": "view == arm-template",
+          "group": "7_modification"
+        },
+        {
+          "command": "arm-template.cutNode",
+          "when": "view == arm-template",
+          "group": "5_cutcopypaste"
+        },
+        {
+          "command": "arm-template.copyNode",
+          "when": "view == arm-template",
+          "group": "5_cutcopypaste"
+        },
+        {
+          "command": "arm-template.pasteNode",
+          "when": "view == arm-template",
+          "group": "5_cutcopypaste"
+        }
+      ]
     }
   },
   "main": "./out/src/AzureRMTools",
