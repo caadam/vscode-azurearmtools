@@ -23,7 +23,7 @@ const topLevelIcons: [string, string][] = [
     ["variables", "variables.svg"],
     ["resources", "Microsoft.Resources.subscriptions.resourceGroups.svg"],
     ["outputs", "outputs.svg"],
-    ["tags", "tags.svg"],
+    ["functions", "function.svg"],
 ];
 
 const topLevelChildIconsByRootNode: [string, string][] = [
@@ -31,10 +31,10 @@ const topLevelChildIconsByRootNode: [string, string][] = [
     ["variables", "variables.svg"],
     ["outputs", "outputs.svg"],
     ["tags", "tags.svg"],
-    ["cpoy", "loading.svg"]
+    ["functions", "function.svg"],
 ];
 
-const resourceIcons: [string, string][] = [
+const resourceTypeIcons: [string, string][] = [
     ["Microsoft.ApiManagement/service", "Microsoft.ApiManagement.service.svg"],
     ["Microsoft.Automation/AutomationAccounts", "Microsoft.Automation.AutomationAccounts.svg"],
     ["Microsoft.Cache/Redis", "Microsoft.Cache.Redis.svg"],
@@ -90,7 +90,89 @@ const resourceIcons: [string, string][] = [
     ["Microsoft.Web/HostingEnvironments/workerPools", "Microsoft.Web.HostingEnvironments.workerPools.svg"],
     ["Microsoft.Web/HostingEnvironments", "Microsoft.Web.HostingEnvironments.svg"],
     ["Microsoft.Web/sites", "Microsoft.Web.Sites.svg"],
-    ["Microsoft.Web/serverfarms", "Microsoft.Web.serverfarms.svg"]
+    ["Microsoft.Web/serverfarms", "Microsoft.Web.serverfarms.svg"],
+];
+
+const resourceChildIcons: [string, string][] = [
+    ["parameters", "parameters.svg"],
+    ["variables", "variables.svg"],
+    ["outputs", "outputs.svg"],
+    ["tags", "tags.svg"],
+    ["functions", "function.svg"],
+];
+
+const functionIcons: [string, string][] = [
+    //Array and object functions
+    ["array", "function.svg"],
+    ["coalesce", "function.svg"],
+    ["concat", "function.svg"],
+    ["contains", "function.svg"],
+    ["createArray", "function.svg"],
+    ["empty", "function.svg"],
+    ["first", "function.svg"],
+    ["intersection", "function.svg"],
+    ["json", "function.svg"],
+    ["last", "function.svg"],
+    ["length", "function.svg"],
+    ["min", "function.svg"],
+    ["max", "function.svg"],
+    ["range", "function.svg"],
+    ["skip", "function.svg"],
+    ["take", "function.svg"],
+    ["union", "function.svg"],
+    //Comparison functions
+    ["equals", "function.svg"],
+    ["less", "function.svg"],
+    ["lessOrEquals", "function.svg"],
+    ["greater", "function.svg"],
+    ["greaterOrEquals", "function.svg"],
+    //Logical functions
+    ["and", "function.svg"],
+    ["bool", "function.svg"],
+    ["if", "function.svg"],
+    ["not", "function.svg"],
+    ["or", "function.svg"],
+    // Resource functions
+    ["listAccountSas", "function.svg"],
+    ["listKeys", "function.svg"],
+    ["listSecrets", "function.svg"],
+    ["list*", "function.svg"],
+    ["providers", "function.svg"],
+    ["reference", "function.svg"],
+    ["resourceGroup", "function.svg"],
+    ["resourceId", "function.svg"],
+    ["subscription", "function.svg"],
+    // String functions
+    ["base64", "function.svg"],
+    ["base64ToJson", "function.svg"],
+    ["base64ToString", "function.svg"],
+    ["concat", "function.svg"],
+    ["contains", "function.svg"],
+    ["dataUri", "function.svg"],
+    ["dataUriToString", "function.svg"],
+    ["empty", "function.svg"],
+    ["endsWith", "function.svg"],
+    ["first", "function.svg"],
+    ["guid", "function.svg"],
+    ["indexOf", "function.svg"],
+    ["last", "function.svg"],
+    ["lastIndexOf", "function.svg"],
+    ["length", "function.svg"],
+    ["padLeft", "function.svg"],
+    ["replace", "function.svg"],
+    ["skip", "function.svg"],
+    ["split", "function.svg"],
+    ["startsWith", "function.svg"],
+    ["string", "function.svg"],
+    ["substring", "function.svg"],
+    ["take", "function.svg"],
+    ["toLower", "function.svg"],
+    ["toUpper", "function.svg"],
+    ["trim", "function.svg"],
+    ["uniqueString", "function.svg"],
+    ["uri", "function.svg"],
+    ["uriComponent", "function.svg"],
+    ["uriComponentToString", "function.svg"]
 ];
 
 export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {
@@ -134,18 +216,6 @@ export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {
         if (aliases[key] !== undefined) {
             key = aliases[key];
         }
-
-        // const icons = {
-        //     class: {
-        //         private: vscode.Uri.file(__dirname + "/../assets/ic_class_private_24px.svg"),
-        //         protected: vscode.Uri.file(__dirname + "/../assets/ic_class_private_24px.svg"),
-        //         public: vscode.Uri.file(__dirname + "/../assets/ic_class_public_24px.svg"),
-        //     },
-        // };
-
-        // if (icons[key] !== undefined) {
-        //     node.iconPath = icons[key][visibility];
-        // }
 
         return node;
     }
@@ -419,18 +489,58 @@ export class JsonOutlineProvider implements vscode.TreeDataProvider<string> {
         }
 
         // If resourceType element is found on resource objects set to specific resourceType Icon or else a default resource icon
-        if (elementInfo.current.level > 1 && elementInfo.current.key.kind === Json.ValueKind.ObjectValue) {
-            const rootNode = this.tree.getValueAtCharacterIndex(elementInfo.root.key.start);
+        if (elementInfo.current.level > 1) {
+            if (elementInfo.current.key.kind === Json.ValueKind.ObjectValue) {
+                const rootNode = this.tree.getValueAtCharacterIndex(elementInfo.root.key.start);
 
-            if (rootNode.toString().toUpperCase() === "resources".toUpperCase() && keyOrResourceNode instanceof Json.ObjectValue) {
-                for (var i = 0, il = keyOrResourceNode.properties.length; i < il; i++) {
-                    if (keyOrResourceNode.properties[i].name.toString().toUpperCase() === "type".toUpperCase()) {
-                        let resourceType = keyOrResourceNode.properties[i].value.toString().toUpperCase();
-                        icon = this.getIcon(resourceIcons, resourceType, "resources.svg");
+                if (rootNode.toString().toUpperCase() === "resources".toUpperCase() && keyOrResourceNode instanceof Json.ObjectValue) {
+                    for (var i = 0, il = keyOrResourceNode.properties.length; i < il; i++) {
+
+                        var property: string = keyOrResourceNode.properties[i].name.toString().toUpperCase();
+
+                        switch (property) {
+                            case "type".toUpperCase(): {
+                                let resourceType = keyOrResourceNode.properties[i].value.toString().toUpperCase();
+                                icon = this.getIcon(resourceTypeIcons, resourceType, "resources.svg");
+                                break;
+                            }
+                            default: {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (elementInfo.current.key.kind === Json.ValueKind.PropertyValue) {
+                const rootNode = this.tree.getValueAtCharacterIndex(elementInfo.current.key.start);
+
+                var property: string = rootNode.toString().toUpperCase();
+
+                switch (property) {
+                    case "copy".toUpperCase(): {
+                        icon = this.getIcon(resourceChildIcons, "copy", "loading.svg");
+                        break;
+                    }
+                    case "properties".toUpperCase(): {
+                        icon = this.getIcon(resourceChildIcons, "copy", "variables.svg");
+                        break;
+                    }
+                    case "sku".toUpperCase(): {
+                        icon = this.getIcon(resourceChildIcons, "copy", "variables.svg");
+                        break;
+                    }
+                    case "tags".toUpperCase(): {
+                        icon = this.getIcon(resourceChildIcons, "tags", "tags.svg");
+                        break;
+                    }
+                    default: {
+                        break;
                     }
                 }
             }
         }
+
+        // If function
 
         if (icon) {
             return (`${__dirname}/../../icons/${icon}`);
